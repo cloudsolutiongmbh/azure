@@ -4,7 +4,7 @@ if (!(Get-Module -ListAvailable -Name $module)) {
     Install-Module -Name $module -Force
 } 
 else {
-    Import-Module -Name Evergreen
+    Import-Module -Name $module
 }
 
 function Create-Folder($folder) {
