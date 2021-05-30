@@ -7,10 +7,10 @@ else {
     Import-Module -Name Evergreen
 }
 
-function Create-Folder($path) {
+function Create-Folder($folder) {
 
-    if (!(Test-Path -path $path)) {
-        New-Item -ItemType directory -Path $path -Force -ErrorAction "SilentlyContinue"
+    if (!(Test-Path -path $folder)) {
+        New-Item -ItemType directory -Path $folder -Force -ErrorAction "SilentlyContinue"
     }
 
 }
@@ -23,8 +23,8 @@ function Install($setup, $arguments) {
     Start-Process -FilePath $setup -ArgumentList $arguments
 }
 
-$path = "C:\customization-cs"
-Create-Folder -path $path
+$folder = "C:\customization-cs"
+Create-Folder -path $folder
 
 
 #Office 365
@@ -32,7 +32,7 @@ Write-Host "---------- Office 365 ----------"
 
 $o365 = @{
     url   = "https://github.com/cloudsolutiongmbh/azure/raw/main/customization/o365setup.zip"
-    path  = $path + "\o365"
+    path  = $folder + "\o365"
     setup = $o365.path + "\setup.exe"
     arg   = "/configure " + $o365.path + "\config.xml"
     zip   = $o365.path + "\o365setup.zip"
@@ -49,7 +49,7 @@ Write-Host "---------- OneDrive Machine Installation ----------"
 
 $onedrive = @{
     url   = (Get-EvergreenApp -Name "MicrosoftOneDrive" | Where-Object { $_.Architecture -eq "x86" -and $_.Ring -eq "Enterprise" -and $_.Type -eq "exe" }).Uri
-    path  = $path + "\onedrive"
+    path  = folder + "\onedrive"
     setup = $onedrive.path + "\OneDriveSetup.exe"
     arg   = "/silent /allusers"
 }
@@ -59,6 +59,7 @@ Download -url $onedrive.url -outfile $onedrive.setup
 Install -setup $onedrive.setup -arguments $onedrive.arg
 
 #FSLogix Delete Keys in Script
+Write-Host "---------- CleanUp FsLogix ----------"
 $fslogix_keys = @("HKLM:\Software\FSLogix\Profiles", "HKLM:\SOFTWARE\Policies\FSLogix\ODFC")
 
 foreach ($key in $fslogix_keys) {
@@ -72,5 +73,8 @@ foreach ($key in $fslogix_keys) {
 
 }
 
-
 #CleanUp
+$paths = @($folder, "C:\optimize", "C:\teams", "C:\temp")
+foreach ($path in $paths){
+   if(Test-Path -Path $path){Remove-Item -Path $path -Recurse -Force}
+}
