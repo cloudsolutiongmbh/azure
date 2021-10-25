@@ -36,7 +36,7 @@ ForEach ( $line in $TempArr) {
 
 
 #
-# Define Cleanup function
+#  Define Cleanup function
 #
 
 Function Cleanup {
