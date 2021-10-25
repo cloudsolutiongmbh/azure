@@ -31,7 +31,7 @@ Write-Host "---------- Office 365 ----------"
 $o365_path = $folder + "\o365"
 
 $o365 = @{
-    url   = "https://github.com/cloudsolutiongmbh/azure/raw/main/customization/o365setup.zip"
+    url   = "https://github.com/cloudsolutiongmbh/azure/raw/main/avd-update/o365setup.zip"
     zip   = $o365_path + "\o365setup.zip"
     setup = $o365_path + "\setup.exe"
     arg   = "/configure " + $o365_path + "\config.xml"
