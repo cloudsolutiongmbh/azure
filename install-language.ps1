@@ -29,7 +29,7 @@ write-host 'AIB Customization: ISO mounted'
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force -Verbose
 
 ###################################################
-# Install Language pack Win10 1809 and higher
+# Install Language pack  Win10 1809 and higher
 # Created by Patrick van den Born (vandenborn.it)
 ################################################
 
