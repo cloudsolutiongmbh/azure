@@ -26,7 +26,7 @@ $folder = "C:\customization-cs"
 Create -path $folder
 
 # Office 365
-Write-Host "---------- Office 365 ----------"
+Write-Host "---------- Office 365 -----------"
 # Office 365 Object Configuration - download from CS Github
 $o365_path = $folder + "\o365"
 
